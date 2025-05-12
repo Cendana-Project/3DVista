@@ -3,19 +3,15 @@ const app = express();
 const path = require('path');
 
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public/Vista')));
 
-app.get('/', (req, res) => {
-    const filePath = path.join(__dirname, 'public', 'Vista', 'index.htm');
-    console.log('Sending file:', filePath);  // Log untuk memastikan jalurnya benar
-    res.sendFile(filePath, (err) => {
-        if (err) {
-            console.log('Error sending file:', err);
-            res.status(500).send('Something went wrong');
-        }
-    });
+app.get('/3dvista', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/Vista/index.htm'));
 });
 
+app.get('/', (req, res) => {
+    res.redirect('/3DVista');
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
