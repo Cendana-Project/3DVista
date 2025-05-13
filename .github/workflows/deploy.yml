@@ -1,33 +1,28 @@
 name: build-and-deploy
-
 on:
   push:
     branches:
-      - main  # ganti dengan branch yang kamu pakai
-
+      - main
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-
     - name: Copy files to VPS
       uses: appleboy/scp-action@v0.1.4
       with:
         host: ${{ secrets.VPS_HOST }}
         username: ${{ secrets.VPS_USER }}
-        key: ${{ secrets.VPS_KEY }}
+        password: ${{ secrets.VPS_PASSWORD }}  # Change from key to password
         source: "."
         target: "/var/www/3DVista"
-
     - name: SSH and rebuild container
       uses: appleboy/ssh-action@v1.0.0
       with:
         host: ${{ secrets.VPS_HOST }}
         username: ${{ secrets.VPS_USER }}
-        key: ${{ secrets.VPS_KEY }}
+        password: ${{ secrets.VPS_PASSWORD }}  # Change from key to password
         script: |
           cd /var/www/3DVista
           docker stop 3dvista || true
