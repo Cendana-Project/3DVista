@@ -28,4 +28,4 @@ jobs:
           sudo docker stop 3dvista || true
           sudo docker rm 3dvista || true
           sudo docker build -t 3dvista .
-          sudo docker run -d -p 3000:3000 --name 3dvista 3dvista
+          sudo docker run -d -p 8085:3000 --name 3dvista 3dvista
