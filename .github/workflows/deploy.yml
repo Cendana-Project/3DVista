@@ -25,7 +25,7 @@ jobs:
         password: ${{ secrets.VPS_PASSWORD }}  # Change from key to password
         script: |
           cd /var/www/3DVista
-          docker stop 3dvista || true
-          docker rm 3dvista || true
-          docker build -t 3dvista .
-          docker run -d -p 3000:3000 --name 3dvista 3dvista
+          sudo docker stop 3dvista || true
+          sudo docker rm 3dvista || true
+          sudo docker build -t 3dvista .
+          sudo docker run -d -p 3000:3000 --name 3dvista 3dvista
