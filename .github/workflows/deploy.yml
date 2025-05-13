@@ -1,9 +1,9 @@
-name: Deploy to VPS
+name: build-and-deploy
 
 on:
   push:
     branches:
-      - main
+      - main  # ganti dengan branch yang kamu pakai
 
 jobs:
   build-and-deploy:
@@ -13,23 +13,24 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Log in to Docker Hub
-      uses: docker/login-action@v2
+    - name: Copy files to VPS
+      uses: appleboy/scp-action@v0.1.4
       with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USER }}
+        key: ${{ secrets.VPS_KEY }}
+        source: "."
+        target: "/var/www/3DVista"
 
-    - name: Build and push Docker image
-      run: |
-        docker build -t yourdockeruser/yourapp:latest .
-        docker push yourdockeruser/yourapp:latest
-
-    - name: SSH and deploy on VPS
+    - name: SSH and rebuild container
       uses: appleboy/ssh-action@v1.0.0
       with:
         host: ${{ secrets.VPS_HOST }}
         username: ${{ secrets.VPS_USER }}
-        key: ${{ secrets.VPS_SSH_KEY }}
+        key: ${{ secrets.VPS_KEY }}
         script: |
-          docker pull yourdockeruser/yourapp:latest
-          docker-compose -f /path/to/docker-compose.yml up -d
+          cd /var/www/3DVista
+          docker stop 3dvista || true
+          docker rm 3dvista || true
+          docker build -t 3dvista .
+          docker run -d -p 3000:3000 --name 3dvista 3dvista
