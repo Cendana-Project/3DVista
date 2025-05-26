@@ -42,5 +42,5 @@ jobs:
     - name: Error - Repository URL is empty
       if: steps.ecr-repo-url.outputs.repository-url == ''
       run: |
-        echo "❌ Gagal mendapatkan ECR repository URL. Pastikan repo '3dvista-kjb' sudah dibuat di ECR."
+        echo "Gagal mendapatkan ECR repository URL. Pastikan repo '3dvista-kjb' sudah dibuat di ECR."
         exit 1
