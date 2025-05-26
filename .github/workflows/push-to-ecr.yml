@@ -38,8 +38,8 @@ jobs:
     # Tag and push Docker image to ECR
     - name: Push Docker image to ECR
       run: |
-        docker tag 3dvista:latest ${{ steps.ecr-repo-url.outputs.repository-url }}:latest
-        docker push ${{ steps.ecr-repo-url.outputs.repository-url }}:latest
+        docker tag 3dvista:latest ${{ steps.ecr-repo-url.outputs.repository-url }}
+        docker push ${{ steps.ecr-repo-url.outputs.repository-url }}
 
     # Update ECS task definition or service
     - name: Deploy to ECS
