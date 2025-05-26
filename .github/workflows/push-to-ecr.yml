@@ -12,36 +12,35 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # Login to AWS using credentials from GitHub Secrets
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1  # Ganti dengan region AWSmu
+        aws-region: us-east-1
 
-    # Build Docker image
     - name: Build Docker image
-      run: |
-        docker build -t 3dvista .
+      run: docker build -t 3dvista .
 
-    # Login to Amazon ECR
     - name: Login to Amazon ECR
       id: ecr-login
       uses: aws-actions/amazon-ecr-login@v1
 
-    # Get the ECR repository URL
     - name: Get ECR Repository URL
       id: ecr-repo-url
-      run: echo "::set-output name=repository-url::$(aws ecr describe-repositories --repository-names 3dvista --query 'repositories[0].repositoryUri' --output text)"
-
-    # Tag and push Docker image to ECR
-    - name: Push Docker image to ECR
       run: |
-        docker tag 3dvista:latest ${{ steps.ecr-repo-url.outputs.repository-url }}
-        docker push ${{ steps.ecr-repo-url.outputs.repository-url }}
+        REPO_URI=$(aws ecr describe-repositories --repository-names 3dvista-kjb --query 'repositories[0].repositoryUri' --output text)
+        echo "ECR Repository URI: $REPO_URI"
+        echo "::set-output name=repository-url::$REPO_URI"
 
-    # Update ECS task definition or service
-    - name: Deploy to ECS
+    - name: Tag and push Docker image to ECR
+      if: steps.ecr-repo-url.outputs.repository-url != ''
       run: |
-        aws ecs update-service --cluster your-cluster-name --service your-service-name --force-new-deployment
+        docker tag 3dvista:latest ${{ steps.ecr-repo-url.outputs.repository-url }}:latest
+        docker push ${{ steps.ecr-repo-url.outputs.repository-url }}:latest
+
+    - name: Error - Repository URL is empty
+      if: steps.ecr-repo-url.outputs.repository-url == ''
+      run: |
+        echo "❌ Gagal mendapatkan ECR repository URL. Pastikan repo '3dvista-kjb' sudah dibuat di ECR."
+        exit 1
