@@ -12,6 +12,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    # Login to AWS using credentials from GitHub Secrets
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
@@ -19,13 +20,17 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1
 
+    # Build Docker image
     - name: Build Docker image
-      run: docker build -t 3dvista .
+      run: |
+        docker build -t 3dvista-kjb .
 
-    - name: Login to Amazon ECR
-      id: ecr-login
-      uses: aws-actions/amazon-ecr-login@v1
+    # Authenticate Docker client with ECR
+    - name: Authenticate Docker to ECR
+      run: |
+        aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 381491836519.dkr.ecr.us-east-1.amazonaws.com
 
+    # Get the ECR Repository URL
     - name: Get ECR Repository URL
       id: ecr-repo-url
       run: |
@@ -33,14 +38,20 @@ jobs:
         echo "ECR Repository URI: $REPO_URI"
         echo "::set-output name=repository-url::$REPO_URI"
 
+    # Tag and push Docker image to ECR
     - name: Tag and push Docker image to ECR
       if: steps.ecr-repo-url.outputs.repository-url != ''
       run: |
-        docker tag 3dvista:latest ${{ steps.ecr-repo-url.outputs.repository-url }}:latest
+        docker tag 3dvista-kjb:latest ${{ steps.ecr-repo-url.outputs.repository-url }}:latest
         docker push ${{ steps.ecr-repo-url.outputs.repository-url }}:latest
 
     - name: Error - Repository URL is empty
       if: steps.ecr-repo-url.outputs.repository-url == ''
       run: |
-        echo "Gagal mendapatkan ECR repository URL. Pastikan repo '3dvista-kjb' sudah dibuat di ECR."
+        echo "❌ Gagal mendapatkan ECR repository URL. Pastikan repo '3dvista-kjb' sudah dibuat di ECR."
         exit 1
+
+    # Update ECS task definition or service
+    - name: Deploy to ECS
+      run: |
+        aws ecs update-service --cluster your-cluster-name --service your-service-name --force-new-deployment
