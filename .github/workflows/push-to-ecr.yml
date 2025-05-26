@@ -1,19 +1,47 @@
-name: Configure AWS Credentials
-uses: aws-actions/configure-aws-credentials@v1
-with:
-  aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  aws-region: us-east-1
+name: build-and-deploy-to-aws
 
-name: Login to Amazon ECR
-id: login-ecr
-uses: aws-actions/amazon-ecr-login@v1
+on:
+  push:
+    branches:
+      - main
 
-name: Build and tag Docker image
-run: |
-  docker build -t 3dvista .
-  docker tag 3dvista:latest ${{ steps.login-ecr.outputs.registry }}.dkr.ecr.us-east-1.amazonaws.com/3dvista:latest
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-name: Push image to ECR
-run: |
-  docker push ${{ steps.login-ecr.outputs.registry }}.dkr.ecr.us-east-1.amazonaws.com/3dvista:latest
+    # Login to AWS using credentials from GitHub Secrets
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1  # Ganti dengan region AWSmu
+
+    # Build Docker image
+    - name: Build Docker image
+      run: |
+        docker build -t 3dvista .
+
+    # Login to Amazon ECR
+    - name: Login to Amazon ECR
+      id: ecr-login
+      uses: aws-actions/amazon-ecr-login@v1
+
+    # Get the ECR repository URL
+    - name: Get ECR Repository URL
+      id: ecr-repo-url
+      run: echo "::set-output name=repository-url::$(aws ecr describe-repositories --repository-names 3dvista --query 'repositories[0].repositoryUri' --output text)"
+
+    # Tag and push Docker image to ECR
+    - name: Push Docker image to ECR
+      run: |
+        docker tag 3dvista:latest ${{ steps.ecr-repo-url.outputs.repository-url }}:latest
+        docker push ${{ steps.ecr-repo-url.outputs.repository-url }}:latest
+
+    # Update ECS task definition or service
+    - name: Deploy to ECS
+      run: |
+        aws ecs update-service --cluster your-cluster-name --service your-service-name --force-new-deployment
