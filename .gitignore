@@ -1,2 +1,13 @@
 node_modules
 package-lock.json
+
+# Optional: Exclude development files from deployment
+# .git
+# .github
+# .vscode
+# *.md
+
+# Optional: Exclude specific large media files if not needed in production
+# public/Vista/media/panorama_*/*/0/*
+# *.psd
+# *.ai
