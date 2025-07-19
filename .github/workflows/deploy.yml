@@ -8,46 +8,69 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Prepare target directory
+      - name: Deploy to VPS via Git Pull
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            # Create target directory if it doesn't exist
-            mkdir -p /home/bitnami/3DVista
-            # Set proper permissions
-            chmod 755 /home/bitnami/3DVista
-            # Check available disk space
-            df -h /home/bitnami/
-            echo "Target directory prepared successfully"
-
-      - name: Copy files to VPS
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          source: "."
-          target: "/home/bitnami/3DVista"
-          timeout: 300s
-          command_timeout: 30m
-          overwrite: true
-          debug: true
-
-      - name: SSH and rebuild container
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          script: |
-            cd /home/bitnami/3DVista
+            echo "Starting deployment..."
+            
+            # Navigate to deployment directory
+            cd /home/bitnami/
+            
+            # Check if directory exists, if not clone, if yes pull latest
+            if [ ! -d "3DVista" ]; then
+              echo "Cloning repository for the first time..."
+              git clone https://github.com/${{ github.repository }}.git 3DVista
+            else
+              echo "Repository exists, pulling latest changes..."
+              cd 3DVista
+              
+              # Reset any local changes and pull latest
+              git fetch origin
+              git reset --hard origin/main
+              git clean -fd
+              
+              cd ..
+            fi
+            
+            # Navigate to project directory
+            cd 3DVista
+            
+            echo "Current commit: $(git rev-parse HEAD)"
+            echo "Current branch: $(git branch --show-current)"
+            
+            # Stop and remove existing container
+            echo "Stopping existing container..."
             sudo docker stop 3dvista || true
             sudo docker rm 3dvista || true
+            
+            # Remove old Docker image to free space
+            echo "Removing old Docker image..."
+            sudo docker rmi 3dvista || true
+            
+            # Optional: Clean up Docker system to free space
+            sudo docker system prune -f
+            
+            # Build new image
+            echo "Building new Docker image..."
             sudo docker build -t 3dvista .
+            
+            # Run new container
+            echo "Starting new container..."
             sudo docker run -d -p 8085:3000 --name 3dvista 3dvista
+            
+            # Verify container is running
+            sleep 5
+            if sudo docker ps | grep -q 3dvista; then
+              echo "✅ Deployment successful! Container is running."
+              sudo docker ps | grep 3dvista
+            else
+              echo "❌ Deployment failed! Container is not running."
+              sudo docker logs 3dvista
+              exit 1
+            fi
+            
+            echo "Deployment completed successfully!"
