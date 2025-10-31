@@ -494,4 +494,4 @@ HTMLText_996C1634_E957_0BDE_41D5_0614CE92204C_mobile.html = <div style="text-ali
 ### Description
 
 ### Title
-tour.name = KIJB-2025 (Duplicated)
+tour.name = KIJB-2025
