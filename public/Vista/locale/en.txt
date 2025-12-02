@@ -249,7 +249,7 @@ quizTimeout_CE44D482_E8E9_08BA_41A3_EF54918535A4.score = View Score
 ## Hotspot
 
 ### URL
-overlay_CA48FF3D_DF37_60A4_41B1_F673A550E0D6.url = //www.youtube.com/embed/n4X8Gmh_GQc?feature=share
+overlay_CA48FF3D_DF37_60A4_41B1_F673A550E0D6.url = //www.youtube.com/embed/qMrUazNwOmo?feature=share
 
 ## Media
 
