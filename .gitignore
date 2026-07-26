@@ -1,5 +1,6 @@
 node_modules
 package-lock.json
+.wrangler
 
 # Optional: Exclude development files from deployment
 # .git

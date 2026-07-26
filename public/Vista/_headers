@@ -1,0 +1,26 @@
+/*
+  X-Content-Type-Options: nosniff
+
+/index.htm
+  Cache-Control: public, max-age=300, must-revalidate
+
+/script.js
+  Cache-Control: public, max-age=300, must-revalidate
+
+/script_general.js
+  Cache-Control: public, max-age=300, must-revalidate
+
+/script_mobile.js
+  Cache-Control: public, max-age=300, must-revalidate
+
+/media/*
+  Cache-Control: public, max-age=604800
+
+/lib/*
+  Cache-Control: public, max-age=604800
+
+/skin/*
+  Cache-Control: public, max-age=604800
+
+/files/*
+  Cache-Control: public, max-age=604800
