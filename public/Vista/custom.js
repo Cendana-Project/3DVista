@@ -61,10 +61,10 @@
       pDivs.forEach(function (d) {
         var t = d.textContent.trim();
         if (t.length > 0 && t.length < 50 && !/[.,;:]$/.test(t)) {
-          d.classList.add('tdv-h');
+          if (!d.classList.contains('tdv-h')) d.classList.add('tdv-h');
           d.classList.remove('tdv-p');
         } else {
-          d.classList.add('tdv-p');
+          if (!d.classList.contains('tdv-p')) d.classList.add('tdv-p');
           d.classList.remove('tdv-h');
         }
       });
@@ -82,18 +82,35 @@
     });
   }
 
-  // Monitor perubahan DOM saat popup dibuka/ditutup
-  var observer = new MutationObserver(applyPopupStyles);
+  // Throttled frame scheduler untuk menghindari main-thread thrashing
+  var isScheduled = false;
+  function scheduleApply() {
+    if (isScheduled) return;
+    isScheduled = true;
+    requestAnimationFrame(function () {
+      isScheduled = false;
+      applyPopupStyles();
+    });
+  }
+
+  // Monitor penambahan DOM node baru (popup dibuka) tanpa trigger loop atribut
+  var observer = new MutationObserver(function (mutations) {
+    for (var i = 0; i < mutations.length; i++) {
+      if (mutations[i].addedNodes.length > 0) {
+        scheduleApply();
+        break;
+      }
+    }
+  });
+
   observer.observe(document.documentElement, {
     childList: true,
-    subtree: true,
-    attributes: true,
-    attributeFilter: ['style', 'class']
+    subtree: true
   });
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', applyPopupStyles);
+    document.addEventListener('DOMContentLoaded', scheduleApply);
   } else {
-    applyPopupStyles();
+    scheduleApply();
   }
 })();
