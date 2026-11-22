@@ -1,0 +1,32 @@
+/* Override tampilan teks popup. Dipisah dari export 3DVista agar tidak tertimpa saat re-export. */
+div[style*="text-align:left; color:#000"] {
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif !important;
+  color: #334155 !important;
+}
+div[style*="text-align:left; color:#000"] > div {
+  text-align: left !important; /* justify membuat jarak antar kata melebar */
+  font-size: 15px !important;
+  line-height: 1.7 !important;
+  margin: 0 0 12px !important;
+}
+div[style*="text-align:left; color:#000"] > div span {
+  display: inline !important;
+  font-family: inherit !important;
+  font-size: 15px !important;
+  color: #334155 !important;
+  letter-spacing: 0 !important;
+}
+/* judul bagian (baris pendek tanpa tanda baca akhir), ditandai oleh custom.js */
+div[style*="text-align:left; color:#000"] > div.tdv-h {
+  margin: 18px 0 6px !important;
+  padding-left: 10px;
+  border-left: 3px solid #0b6cff;
+}
+div[style*="text-align:left; color:#000"] > div.tdv-h:first-child {
+  margin-top: 0 !important;
+}
+div[style*="text-align:left; color:#000"] > div.tdv-h span {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+}
