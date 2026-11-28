@@ -46,15 +46,48 @@ div:has(> img[src*="IconButton_43CEF193"]):hover {
   opacity: 0.95 !important;
 }
 
-/* 3. Ikon Sosial / Download (PDF, IG, YT) */
-div:has(> img[src*="skin/Image_"]) img,
-div:has(> img[src*="skin/IconButton_"]) img {
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s ease !important;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.08)) !important;
+/* 3. Tombol ikon popup (PDF, IG, YT, panah prev/next, close)
+   --kijb-s / --kijb-y diisi custom.js untuk menyamakan ukuran & menyejajarkan
+   ikon dalam satu baris. Hanya transform (visual), layout 3DVista tidak diubah. */
+img[src*="/skin/IconButton_"],
+img[src*="/skin/Image_"] {
+  transform: translateY(var(--kijb-y, 0px)) scale(var(--kijb-s, 1));
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.08));
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-drag: none;
+  user-select: none;
+  touch-action: manipulation;
 }
 
-div:has(> img[src*="skin/Image_"]) img:hover,
-div:has(> img[src*="skin/IconButton_"]) img:hover {
-  transform: translateY(-2px) scale(1.05) !important;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.14)) !important;
+@media (hover: hover) {
+  img[src*="/skin/IconButton_"]:hover,
+  img[src*="/skin/Image_"]:hover {
+    transform: translateY(calc(var(--kijb-y, 0px) - 2px)) scale(calc(var(--kijb-s, 1) * 1.08));
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.18));
+  }
+}
+
+img[src*="/skin/IconButton_"]:active,
+img[src*="/skin/Image_"]:active {
+  transform: translateY(var(--kijb-y, 0px)) scale(calc(var(--kijb-s, 1) * 0.94));
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.12));
+}
+
+/* 4. Teks deskripsi popup: rata kiri + jarak baris lebih nyaman dibaca
+   (teks rata kiri-kanan menghasilkan celah antar kata yang lebar di kolom sempit) */
+p[style*="text-align:justify"],
+p[style*="text-align: justify"],
+div[style*="text-align:justify"],
+div[style*="text-align: justify"] {
+  text-align: left !important;
+  line-height: 1.4 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  img[src*="/skin/IconButton_"],
+  img[src*="/skin/Image_"] {
+    transition: none;
+  }
 }
