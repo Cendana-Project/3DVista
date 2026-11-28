@@ -72,6 +72,13 @@ const staticOptions = {
     }
 };
 
+// Showcase Inovasi (/team). staticOptions disables directory indexes, so serve the page
+// explicitly. The trailing slash matters: team.css, team.js and data/ are relative URLs.
+app.get(['/team', '/3DVista/team'], (req, res) => res.redirect(301, req.path + '/'));
+app.get(['/team/', '/3DVista/team/'], (req, res) => {
+    res.sendFile(path.join(vistaPath, 'team', 'index.html'));
+});
+
 const staticMiddleware = express.static(vistaPath, staticOptions);
 
 // Mount at both '/3DVista' and root '/' to ensure relative paths NEVER 404

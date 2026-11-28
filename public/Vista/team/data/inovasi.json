@@ -1,0 +1,400 @@
+{
+  "_note": "Source of truth for /team. Fill description/video/instagram/org when data is available; empty fields are hidden in the UI. See docs/team-showcase.md.",
+  "categories": [
+    {
+      "id": "bumn-bumd",
+      "name": "BUMN / BUMD",
+      "order": 1
+    },
+    {
+      "id": "kementrian-lembaga-pt",
+      "name": "Kementerian / Lembaga / PT",
+      "order": 2
+    },
+    {
+      "id": "pemda-kabupaten",
+      "name": "Pemda Kabupaten",
+      "order": 3
+    },
+    {
+      "id": "pemda-kota",
+      "name": "Pemda Kota",
+      "order": 4
+    },
+    {
+      "id": "pemprov-jabar",
+      "name": "Pemprov Jawa Barat",
+      "order": 5
+    },
+    {
+      "id": "smp-sma-sederajat",
+      "name": "SMP / SMA Sederajat",
+      "order": 6
+    }
+  ],
+  "items": [
+    {
+      "id": "apo-mayangan",
+      "category": "bumn-bumd",
+      "order": 1,
+      "short": "APO Mayangan",
+      "title": "Alat Pemecah Ombak (APO) Desa Mayangan Subang",
+      "org": null,
+      "pdf": "pdf/apo-mayangan.pdf",
+      "description": null,
+      "video": null,
+      "instagram": null,
+      "pdfHost": "r2"
+    },
+    {
+      "id": "e-voting",
+      "category": "bumn-bumd",
+      "order": 2,
+      "short": "e-Voting",
+      "title": "Aplikasi Pemilu Elektronik (e-Voting)",
+      "org": null,
+      "pdf": null,
+      "description": null,
+      "video": null,
+      "instagram": null
+    },
+    {
+      "id": "simotip",
+      "category": "bumn-bumd",
+      "order": 3,
+      "short": "SIMOTIP",
+      "title": "SIMOTIP",
+      "org": null,
+      "pdf": "pdf/simotip.pdf",
+      "description": null,
+      "video": null,
+      "instagram": null
+    },
+    {
+      "id": "thr-asyik",
+      "category": "bumn-bumd",
+      "order": 4,
+      "short": "THR Asyik",
+      "title": "THR Asyik",
+      "org": null,
+      "pdf": "pdf/thr-asyik.pdf",
+      "description": null,
+      "video": null,
+      "instagram": null
+    },
+    {
+      "id": "saschieversity",
+      "category": "kementrian-lembaga-pt",
+      "order": 1,
+      "short": "SASCHIEVERSITY",
+      "title": "INOVASI SASCHIEVERSITY",
+      "org": null,
+      "pdf": "pdf/saschieversity.pdf",
+      "description": null,
+      "video": null,
+      "instagram": null
+    },
+    {
+      "id": "isopa",
+      "category": "kementrian-lembaga-pt",
+      "order": 2,
+      "short": "ISOPA",
+      "title": "ISOPA (Intelligent Solar Panel)",
+      "org": null,
+      "pdf": "pdf/isopa.pdf",
+      "description": null,
+      "video": null,
+      "instagram": null
+    },
+    {
+      "id": "insting",
+      "category": "kementrian-lembaga-pt",
+      "order": 3,
+      "short": "INSTING",
+      "title": "Instrumen Deteksi Risiko Stunting pada Remaja (Insting)",
+      "org": null,
+      "pdf": "pdf/insting.pdf",
+      "description": null,
+      "video": null,
+      "instagram": null
+    },
+    {
+      "id": "mentari",
+      "category": "kementrian-lembaga-pt",
+      "order": 4,
+      "short": "MENTARI",
+      "title": "MENTARI (Mental Health Remaja Indonesia) Assessment",
+      "org": null,
+      "pdf": "pdf/mentari.pdf",
+      "description": null,
+      "video": null,
+      "instagram": null
+    },
+    {
+      "id": "hts",
+      "category": "kementrian-lembaga-pt",
+      "order": 5,
+      "short": "Taman Sanitasi (HTS)",
+      "title": "Teknologi Hybrid Taman Sanitasi (HTS) untuk Pencegahan Pencemaran Lingkungan dan Daur Ulang Air",
+      "org": null,
+      "pdf": "pdf/hts.pdf",
+      "description": null,
+      "video": null,
+      "instagram": null
+    },
+    {
+      "id": "si-dara-puber",
+      "category": "pemda-kabupaten",
+      "order": 1,
+      "short": "SI DARA PUBER",
+      "title": "EKONOMI BANGKIT HARAPAN TERBIT: SI DARA PUBER BUKA JALAN SEJAHTERA UNTUK 5.260 ORANG MISKIN DI KABUPATEN SUMEDANG (SISTEM PEMBERDAYAAN MASYARAKAT MISKIN DENGAN PENGEMBANGAN EKONOMI PRODUKTIF MELALUI KELOMPOK USAHA BERSAMA)",
+      "org": null,
+      "pdf": "pdf/si-dara-puber.pdf",
+      "description": null,
+      "video": null,
+      "instagram": null
+    },
+    {
+      "id": "ketupat-lebaran",
+      "category": "pemda-kabupaten",
+      "order": 2,
+      "short": "KETUPAT LEBARAN",
+      "title": "KETUPAT LEBARAN (Kegunaan Kartu Kepatuhan Minum Tablet Tambah darah)",
+      "org": null,
+      "pdf": "pdf/ketupat-lebaran.pdf",
+      "description": null,
+      "video": null,
+      "instagram": null
+    },
+    {
+      "id": "ngupahan",
+      "category": "pemda-kabupaten",
+      "order": 3,
+      "short": "NGUPAHAN",
+      "title": "NGUPAHAN (NGABAGI, NGUBAH, NGURAI, SAMPAH PANGAN) DINAS KETAHANAN PANGAN KAB.BOGOR",
+      "org": null,
+      "pdf": "pdf/ngupahan.pdf",
+      "description": null,
+      "video": null,
+      "instagram": null,
+      "pdfHost": "r2"
+    },
+    {
+      "id": "nyai",
+      "category": "pemda-kabupaten",
+      "order": 4,
+      "short": "NYAI",
+      "title": "NYAI (INDRAMAYU ARTIFICIAL INTELLIGENCE)",
+      "org": null,
+      "pdf": "pdf/nyai.pdf",
+      "description": null,
+      "video": null,
+      "instagram": null
+    },
+    {
+      "id": "si-pintar-online",
+      "category": "pemda-kabupaten",
+      "order": 5,
+      "short": "Si Pintar Online",
+      "title": "Si Pintar Online",
+      "org": null,
+      "pdf": "pdf/si-pintar-online.pdf",
+      "description": null,
+      "video": null,
+      "instagram": null
+    },
+    {
+      "id": "simarlin",
+      "category": "pemda-kabupaten",
+      "order": 6,
+      "short": "SIMARLIN",
+      "title": "Sistem Informasi Manajemen Perlindungan Pertanian (SIMARLIN)",
+      "org": null,
+      "pdf": "pdf/simarlin.pdf",
+      "description": null,
+      "video": null,
+      "instagram": null
+    },
+    {
+      "id": "bung-senja",
+      "category": "pemda-kota",
+      "order": 1,
+      "short": "BUNG SENJA",
+      "title": "BUNG SENJA (Tabungan Sedot Tinja )",
+      "org": null,
+      "pdf": null,
+      "description": null,
+      "video": null,
+      "instagram": null
+    },
+    {
+      "id": "bogor-smart-health",
+      "category": "pemda-kota",
+      "order": 2,
+      "short": "Bogor Smart Health",
+      "title": "Bogor Smart Health",
+      "org": null,
+      "pdf": "pdf/bogor-smart-health.pdf",
+      "description": null,
+      "video": null,
+      "instagram": null
+    },
+    {
+      "id": "grak-ompimpah",
+      "category": "pemda-kota",
+      "order": 3,
+      "short": "Grak Ompimpah",
+      "title": "Gerakan Orang Cimahi Pilah Sampah (Grak Ompimpah)",
+      "org": null,
+      "pdf": "pdf/grak-ompimpah.pdf",
+      "description": null,
+      "video": null,
+      "instagram": null
+    },
+    {
+      "id": "konservasi-mata-air",
+      "category": "pemda-kota",
+      "order": 4,
+      "short": "Konservasi Mata Air",
+      "title": "Konservasi Mata Air menjadi Ruang Terbuka Hijau/Ruang Publik",
+      "org": null,
+      "pdf": "pdf/konservasi-mata-air.pdf",
+      "description": null,
+      "video": null,
+      "instagram": null,
+      "pdfHost": "r2"
+    },
+    {
+      "id": "smart-k",
+      "category": "pemda-kota",
+      "order": 5,
+      "short": "SMART-K",
+      "title": "SMART - K (Sistem Manajemen Akuakultur, Rekayasa Teknologi dan Kemitraan)",
+      "org": null,
+      "pdf": "pdf/smart-k.pdf",
+      "description": null,
+      "video": null,
+      "instagram": null
+    },
+    {
+      "id": "tapal-desa",
+      "category": "pemprov-jabar",
+      "order": 1,
+      "short": "TAPAL DESA",
+      "title": "Data Potensi Digital Desa ( TAPAL DESA )",
+      "org": null,
+      "pdf": null,
+      "description": null,
+      "video": null,
+      "instagram": null
+    },
+    {
+      "id": "delman-sarah",
+      "category": "pemprov-jabar",
+      "order": 2,
+      "short": "Delman Sarah",
+      "title": "Delman Sarah (Model Pemeliharaan Sapi Perah) di Jawa Barat",
+      "org": null,
+      "pdf": "pdf/delman-sarah.pdf",
+      "description": null,
+      "video": null,
+      "instagram": null
+    },
+    {
+      "id": "gisa-prima",
+      "category": "pemprov-jabar",
+      "order": 3,
+      "short": "GISA PRIMA",
+      "title": "GISA PRIMA ADMINDUK JABAR",
+      "org": null,
+      "pdf": "pdf/gisa-prima.pdf",
+      "description": null,
+      "video": null,
+      "instagram": null
+    },
+    {
+      "id": "jabar-digital-academy",
+      "category": "pemprov-jabar",
+      "order": 4,
+      "short": "Jabar Digital Academy",
+      "title": "Jabar Digital Academy",
+      "org": null,
+      "pdf": "pdf/jabar-digital-academy.pdf",
+      "description": null,
+      "video": null,
+      "instagram": null
+    },
+    {
+      "id": "jabar-form",
+      "category": "pemprov-jabar",
+      "order": 5,
+      "short": "Jabar Form",
+      "title": "Jabar Form",
+      "org": null,
+      "pdf": "pdf/jabar-form.pdf",
+      "description": null,
+      "video": null,
+      "instagram": null
+    },
+    {
+      "id": "sabun-nanas",
+      "category": "smp-sma-sederajat",
+      "order": 1,
+      "short": "Sabun Nanas",
+      "title": "INOVASI SABUN NANAS TSANAWIYAH SATU",
+      "org": null,
+      "pdf": "pdf/sabun-nanas.pdf",
+      "description": null,
+      "video": null,
+      "instagram": null
+    },
+    {
+      "id": "motor-listrik",
+      "category": "smp-sma-sederajat",
+      "order": 2,
+      "short": "Motor Listrik Finger Print",
+      "title": "Motor Lstrik Dengan Teknologi Finger Print",
+      "org": null,
+      "pdf": "pdf/motor-listrik.pdf",
+      "description": null,
+      "video": null,
+      "instagram": null
+    },
+    {
+      "id": "litnum",
+      "category": "smp-sma-sederajat",
+      "order": 3,
+      "short": "Lesson Study LITNUM",
+      "title": "Penguatan Kompetensi LITNUM Melalui Lesson Study",
+      "org": null,
+      "pdf": "pdf/litnum.pdf",
+      "description": null,
+      "video": null,
+      "instagram": null
+    },
+    {
+      "id": "samving-block",
+      "category": "smp-sma-sederajat",
+      "order": 4,
+      "short": "SAMVING BLOCK",
+      "title": "SAMVING BLOCK (SAMPAH PLASTIK MENJADI PAVING BLOCK)",
+      "org": null,
+      "pdf": "pdf/samving-block.pdf",
+      "description": null,
+      "video": null,
+      "instagram": null
+    },
+    {
+      "id": "tonnetar",
+      "category": "smp-sma-sederajat",
+      "order": 5,
+      "short": "TONNETAR",
+      "title": "TONNETAR (Tongkat Tunanetra Pintar)",
+      "org": null,
+      "pdf": "pdf/tonnetar.pdf",
+      "description": null,
+      "video": null,
+      "instagram": null
+    }
+  ]
+}

@@ -140,3 +140,68 @@
     start();
   }
 })();
+
+/**
+ * Showcase Inovasi: opens /team inside the tour as a full-screen overlay.
+ *
+ * Called by the podium POIs. Their click action (patched into script_general.js by
+ * scripts/patch-team-poi.py) is:  window.kijbOpenTeam('<category-id>')
+ * The page itself runs in an iframe (?embed=1) and asks us to close via postMessage,
+ * so the tour underneath keeps its exact camera position and state.
+ * Details: docs/team-showcase.md
+ */
+(function () {
+  'use strict';
+
+  var OVERLAY_ID = 'kijb-team-overlay';
+  var lastFocus = null;
+
+  function close() {
+    var el = document.getElementById(OVERLAY_ID);
+    if (!el) return;
+    el.parentNode.removeChild(el);
+    document.removeEventListener('keydown', onKey, true);
+    window.removeEventListener('message', onMessage);
+    if (lastFocus && lastFocus.focus) {
+      try { lastFocus.focus({ preventScroll: true }); } catch (e) { /* ignore */ }
+    }
+    lastFocus = null;
+  }
+
+  function onKey(e) {
+    if (e.key === 'Escape') { e.stopPropagation(); close(); }
+  }
+
+  function onMessage(e) {
+    if (e.origin !== window.location.origin) return;
+    if (e.data && e.data.type === 'kijb-team-close') close();
+  }
+
+  window.kijbOpenTeam = function (category) {
+    if (document.getElementById(OVERLAY_ID)) return;
+    lastFocus = document.activeElement;
+
+    var overlay = document.createElement('div');
+    overlay.id = OVERLAY_ID;
+    overlay.className = 'kijb-team-overlay';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-label', 'Showcase Inovasi KIJB 2025');
+
+    var frame = document.createElement('iframe');
+    frame.className = 'kijb-team-frame';
+    frame.title = 'Showcase Inovasi KIJB 2025';
+    frame.src = 'team/?embed=1' + (category ? '&c=' + encodeURIComponent(category) : '');
+
+    // Click on the dim area (outside the panel) closes it, like a normal modal.
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
+
+    overlay.appendChild(frame);
+    document.body.appendChild(overlay);
+    document.addEventListener('keydown', onKey, true);
+    window.addEventListener('message', onMessage);
+    frame.addEventListener('load', function () { try { frame.contentWindow.focus(); } catch (e) { /* ignore */ } });
+  };
+
+  window.kijbCloseTeam = close;
+})();
