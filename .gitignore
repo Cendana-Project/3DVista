@@ -1,15 +1,2 @@
 node_modules
 package-lock.json
-
-# Root export copy (active application files are in public/Vista/)
-/files/
-/lib/
-/locale/
-/media/
-/skin/
-/index.htm
-/script.js
-/script_general.js
-/script_mobile.js
-/socialThumbnail.jpg
-/thumbnail.png
